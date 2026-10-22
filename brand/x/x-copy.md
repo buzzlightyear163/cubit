@@ -1,12 +1,14 @@
 # cubit — X-kit
 
+**CA:** `8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump`
+
 **Kärnmening (postas inte):** $CUBIT is browser proof of work: hold the token, let your CPU hash SHA-256 in a tab, and miners split the coin's pump.fun creator fees in SOL by verified work.
 
 ## Namn och domän
 - Visningsnamn: `cubit`
-- Handle: `@usecubit` (samma mönster som @usehexx, och redan inlagt i sajten) · `@cubitlabs` (hör ihop med domänen) · `@cubitmine` (säger vad den gör)
-- Domän: `cubitlabs.io` (labs-tonen, matchar @cubitlabs) · `usecubit.app` (matchar @usecubit) · `cubit.so` (kortast) · `cubitmine.fun` (meme-ändelse) · `cubit.tech`
-- Kolla själv att handle och domän är lediga.
+- Handle: `@usecubit` (samma mönster som @usehexx, inlagt i sajten) · `@cubitlabs` · `@cubitmine`
+- Domän: `cubitlabs.io` · `usecubit.app` · `cubit.so` · `cubit.tech` · `cubitmine.fun`
+- `[länk]` = domänen när den är vald (eller vercel-adressen tills dess).
 
 ## Bio (max 160)
 Rak:
@@ -21,19 +23,18 @@ a spare cpu core and a browser tab. $CUBIT turns them into a miner: every proof 
 ```
 _123 tecken_
 
-Webbplats: `cubitlabs.io` · Plats: `one tab, one core`
+Webbplats: domänen · Plats: `one tab, one core`
 
-## Pre-launch (ingen CA)
-1. Reveal, några timmar före launch. Bifoga skärminspelning av sajten eller profilbilden.
+## Pre-launch (ingen länk, ingen CA)
+1. Reveal, några timmar före launch. Bifoga skärminspelning av kuben eller profilbilden.
 ```text
 meet cubit.
 
 a miner that lives in a browser tab. hold $CUBIT, hash sha-256 on your cpu, and every proof is re-checked before it counts. creator fees split by verified work.
 
-the cube is up now: cubitlabs.io
 live on pump.fun [tid]
 ```
-_267 tecken_
+_223 tecken_
 
 2. Sista call, 30–60 min före.
 ```text
@@ -42,27 +43,36 @@ cubit goes live on pump.fun in [tid].
 browser proof of work, paid from the coin's own creator fees.
 
 the CA will only ever be posted from this account. anything else is fake.
-
-cubitlabs.io
 ```
-_226 tecken_
+_201 tecken_
 
 
-## Launch-inlägg (fäst, bifoga cubit_launch.mp4)
+## Launch-inlägg (fäst, bifoga cubit_launch.mp4, ingen CA)
+Över 280 tecken: kräver X Premium på kontot.
 ```text
 cubit is live.
 
-hold $CUBIT, open a tab, and your cpu starts hashing sha-256. every proof is re-checked before it counts.
+your browser has a spare core. now it mines.
+
+hold $CUBIT, open a tab, and your cpu hashes sha-256. every proof is re-checked before it counts, and each 60 s window splits its pool by verified work.
 
 creator fees split on chain: 75% miners · 15% buyback + burn · 10% infra
 
-CA: [CA]
-
-cubitlabs.io
+[länk]
 ```
-_270 tecken_
+_313 tecken_
 
-Svar i tråd under:
+Svar 1 direkt under, CA:
+```text
+CA
+
+8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump
+
+only posted from this account.
+```
+_80 tecken_
+
+Svar 2, hur det funkar:
 ```text
 how a tab mines:
 → connect a wallet. address only, no signature
@@ -70,7 +80,7 @@ how a tab mines:
 → start mining. each proof credits 2^d hashes
 → every 60 s window splits its pool by work, up to your cap
 
-try it: cubitlabs.io
+try it: [länk]
 ```
 _264 tecken_
 
@@ -80,11 +90,11 @@ _264 tecken_
 ```text
 $CUBIT
 
-[CA]
+8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump
 
 browser proof of work. hold one unit, hash in a tab, split the creator fees by verified work.
 
-cubitlabs.io
+[länk]
 ```
 _172 tecken_
 
@@ -110,9 +120,9 @@ _53 tecken_
 
 every fee claim, settled window, payout and burn is on the ledger, each linked to its transaction.
 
-cubitlabs.io/ledger
+[länk]/ledger
 ```
-_177 tecken_
+_184 tecken_
 
 
-Obs: launch-inlägget och tråden beskriver hur fees delas till miners. Posta det först när backend skickar riktiga utbetalningar — sajten simulerar nätverket och skickar ingen SOL ännu.
+Obs: launch-inlägget beskriver hur creator fees delas till miners. Sajten simulerar fortfarande nätverket (märkt "demo") och skickar ingen SOL förrän backend är inkopplad.

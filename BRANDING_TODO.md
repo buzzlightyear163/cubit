@@ -4,8 +4,8 @@ Allt nedan är redan rebrandat och körbart — listan är vad som behöver fyll
 
 ## Måste
 - [ ] **X-handle** – `src/config/brand.ts → BRAND.xHandle` (nu platshållaren `usecubit`).
-- [ ] **Mint / CA** – `BRAND.mint`. När den är satt visas CA-chippet på Mine, mint-länkar på Vault/Miners
-      och den riktiga saldokollen (hold units → cap) slås på.
+- [x] **Mint / CA** – `8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump` i `BRAND.mint`. CA-chippet på Mine, mint-länkar
+      på Vault/Miners, saldokollen (hold units → cap) och live-pris från DexScreener är på.
 - [ ] **Plånböcker** – `BRAND.wallets.reward / burn / infra` (visas som "set at launch" tills de finns).
 - [ ] **Backend** – byt `src/sim/network.ts` mot riktig ström och koppla tickets/proofs i
       `src/miner/miner.ts`. Sätt sedan `VITE_DEMO=false` så försvinner demo-etiketten och signaturer länkas.

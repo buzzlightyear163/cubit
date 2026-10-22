@@ -7,7 +7,7 @@ import { net } from '../sim/network'
 
 function Addr({ v }: { v: string }) {
   if (!v) return <span className="dim">set at launch</span>
-  return <ChainLink value={v} short={shortAddr(v)} kind="account" />
+  return <ChainLink value={v} short={shortAddr(v)} kind="account" real />
 }
 
 export default function Vault() {
@@ -129,7 +129,7 @@ export default function Vault() {
         </h2>
         <div className="pn-b">
           <div className="metric-rows pairs">
-            <MetricRow wide label="Token mint" value={<Addr v={BRAND.mint} />} />
+            <MetricRow wide label="Token mint" value={BRAND.mint ? <ChainLink value={BRAND.mint} short={shortAddr(BRAND.mint)} kind="token" real /> : <Addr v="" />} />
             <MetricRow wide label="Reward wallet" value={<Addr v={BRAND.wallets.reward} />} hint="Receives the miners' share of creator fees and sends every payout." />
             <MetricRow wide label="Burn wallet" value={<Addr v={BRAND.wallets.burn} />} hint={`Buys back ${BRAND.ticker} with the burn share and burns it.`} />
             <MetricRow wide label="Infrastructure wallet" value={<Addr v={BRAND.wallets.infra} />} />

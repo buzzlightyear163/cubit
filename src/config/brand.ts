@@ -14,16 +14,20 @@ export const BRAND = {
   description:
     'Proof-of-work in your browser, paid only from pump.fun creator fees already collected. Hold $CUBIT to mine; every proof is re-checked.',
   xHandle: 'usecubit', // TODO(brand): set your real X handle
-  /** Token mint (CA). Leave empty until the coin exists — the CA chip and mint links hide themselves. */
-  mint: '' as string,
+  /** Token mint (CA). Empty hides the CA chip and mint links. */
+  mint: '8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump' as string,
   /** Wallets shown on the Vault page. Empty = "set at launch". */
   wallets: {
     reward: '' as string,
     burn: '' as string,
     infra: '' as string,
   },
-  /** Solana RPC used for read-only calls (token balance check). Override with VITE_SOLANA_RPC. */
-  rpc: (import.meta.env.VITE_SOLANA_RPC as string | undefined) || 'https://api.mainnet-beta.solana.com',
+  /**
+   * Solana RPC for read-only calls (token balance check). Public RPCs refuse browser requests, so the
+   * default is our own proxy: api/rpc.js on Vercel, and a Vite proxy in dev. VITE_SOLANA_RPC can point
+   * straight at a browser-enabled RPC (e.g. a Helius URL with key) instead.
+   */
+  rpc: (import.meta.env.VITE_SOLANA_RPC as string | undefined) || '/api/rpc',
   explorer: 'https://solscan.io',
 } as const
 

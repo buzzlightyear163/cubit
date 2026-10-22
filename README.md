@@ -46,8 +46,12 @@ Kräver Node 18+ (testat med Node 22).
   efter arbete med cap per plånbok (överskott fördelas på plånböcker under cap).
 - **Plånbok, bara adress.** Phantom / Solflare / Backpack via injicerad provider, eller klistra in en
   adress (base58-validerad). Ingen signatur, ingen transaktion.
-- **Saldokoll.** När `BRAND.mint` är satt läses ditt $CUBIT-saldo read-only via Solana RPC och ger
-  hold units + cap. Utan mint körs ett demo-läge med 1 unit / 2 % cap.
+- **Saldokoll.** CA:n `8zotsdhpt6U8SRrXiGC7XDMkxhgRUKx4Q1mMn4acpump` är satt i `BRAND.mint`. Ditt $CUBIT-saldo
+  läses read-only via `/api/rpc` och ger hold units + cap. Publika RPC:er nekar anrop direkt från webbläsare,
+  så `/api/rpc` är en liten proxy: `api/rpc.js` på Vercel (sätt gärna `SOLANA_RPC` till en egen endpoint,
+  t.ex. Helius) och en Vite-proxy i dev/preview. Misslyckas läsningen visas "Balance read failed".
+- **Pris och market cap** på Miners hämtas live från DexScreener när första paret är indexerat (annars "–").
+  Holders länkar till Solscan.
 - **Kuben.** Egen 2D-canvas-motor (`src/cube/engine.ts`): 4×4×4 hex-glyfblock i isometri med upplyst
   kärna, lagret för aktuell sida lyfts ut, kameran följer pekaren, bevis flyger in som glyfer och smälter
   in i kärnan (ripple) eller splittras, bloom, adaptiv kvalitet (Auto/Full/Lite/Off). En enda instans

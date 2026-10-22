@@ -5,6 +5,7 @@ import { PageFrame, Ruler } from '../layouts/PageFrame'
 import { bps, count, hashRate, hashesShort, shortAddr, sol } from '../lib/format'
 import { useStore } from '../lib/store'
 import { net } from '../sim/network'
+import { useMarket } from '../lib/market'
 
 type Period = 'window' | 'day' | 'all'
 const RULER = [
@@ -52,6 +53,7 @@ function LeaderRow({ r, i, total }: { r: Leader; i: number; total: number }) {
 
 export default function Miners() {
   const st = useStore(net)
+  const mk = useMarket()
   const [period, setPeriod] = useState<Period>('window')
   const r = hashRate(st.live.workPerSec)
   const capOf = (u: number) => Math.min(ECON.walletCapBps, u * ECON.capPerUnitBps)
@@ -141,11 +143,22 @@ export default function Miners() {
           </h2>
           <div className="pn-b">
             <div className="metric-rows">
-              <MetricRow wide label="Mint" value={BRAND.mint ? <ChainLink value={BRAND.mint} short={shortAddr(BRAND.mint)} kind="account" /> : <span className="dim">set at launch</span>} hint="Appears once the coin exists on chain. You need one hold unit to mine." />
+              <MetricRow wide label="Mint" value={BRAND.mint ? <ChainLink value={BRAND.mint} short={shortAddr(BRAND.mint)} kind="token" real /> : <span className="dim">set at launch</span>} hint="You need one hold unit of this token to mine." />
               <MetricRow label="Hold unit" value={count(st.token.holdUnit)} unit="tokens" hint={`Priced in SOL: halves whenever one unit is worth more than ${ECON.holdUnitBandSol[1]} SOL at the 24-hour median, at most once a day. Each unit adds ${bps(ECON.capPerUnitBps)} to a wallet's cap, up to ${bps(ECON.walletCapBps)}.`} />
-              <MetricRow label="Price" value={`$${st.token.priceUsd.toFixed(7)}`} />
-              <MetricRow label="Market cap" value={count(st.token.mcapUsd)} unit="USD" />
-              <MetricRow label="Holders" value={count(st.token.holders)} />
+              <MetricRow label="Price" value={mk ? `$${mk.priceUsd < 0.01 ? mk.priceUsd.toPrecision(3) : mk.priceUsd.toFixed(4)}` : '–'} tone={mk ? undefined : 'dim'} hint={mk ? `From ${mk.source}.` : 'Shows once the first trades are indexed.'} />
+              <MetricRow label="Market cap" value={mk ? count(mk.mcapUsd) : '–'} unit={mk ? 'USD' : ''} tone={mk ? undefined : 'dim'} />
+              <MetricRow
+                label="Holders"
+                value={
+                  BRAND.mint ? (
+                    <a href={`${BRAND.explorer}/token/${BRAND.mint}#holders`} target="_blank" rel="noopener noreferrer">
+                      view on Solscan
+                    </a>
+                  ) : (
+                    '–'
+                  )
+                }
+              />
             </div>
           </div>
         </section>

@@ -230,9 +230,9 @@ export function InlineStatus({ title, sub, tone = 'info' }: { title: ReactNode; 
   )
 }
 
-/** A signature / address. Real ones link to the explorer; demo ones are plain text. */
-export function ChainLink({ value, short, kind = 'tx' }: { value: string; short: string; kind?: 'tx' | 'account' }) {
-  if (DEMO || !value) return <span className="sig" title={value}>{short}</span>
+/** A signature / address. Real ones link to the explorer; demo ones are plain text. `real` = always link (config addresses). */
+export function ChainLink({ value, short, kind = 'tx', real }: { value: string; short: string; kind?: 'tx' | 'account' | 'token'; real?: boolean }) {
+  if ((DEMO && !real) || !value) return <span className="sig" title={value}>{short}</span>
   return (
     <a href={`${BRAND.explorer}/${kind}/${value}`} target="_blank" rel="noopener noreferrer" title={value}>
       {short}
