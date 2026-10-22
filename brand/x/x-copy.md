@@ -26,17 +26,45 @@ _123 tecken_
 Webbplats: domänen · Plats: `one tab, one core`
 
 ## Pre-launch (ingen länk, ingen CA)
-1. Reveal, några timmar före launch. Bifoga skärminspelning av kuben eller profilbilden.
+1. Teaser, dagen före eller morgonen samma dag. Bifoga `cubit_avatar.png`.
+```text
+your browser has a spare core.
+
+from [tid] it hashes sha-256 for $CUBIT, and every proof gets re-checked before it counts.
+
+proof of work in a tab, paid from the coin's own creator fees.
+```
+_197 tecken_
+
+2. Reveal, några timmar före. Bifoga en skärminspelning av rig-panelen medan den minar.
 ```text
 meet cubit.
 
-a miner that lives in a browser tab. hold $CUBIT, hash sha-256 on your cpu, and every proof is re-checked before it counts. creator fees split by verified work.
+a miner that lives in a browser tab:
+- connect a wallet, address only
+- hold one unit of $CUBIT
+- your cpu hashes sha-256
+- every 60 s window splits its pool by verified work
 
 live on pump.fun [tid]
 ```
-_223 tecken_
+_237 tecken_
 
-2. Sista call, 30–60 min före.
+3. Mekaniken, 1–2 timmar före. Bifoga en skärmdump av fördelningen på Vault eller Protocol.
+```text
+where the SOL comes from:
+
+only pump.fun creator fees already collected. nothing printed, nothing promised.
+
+75% miners
+15% buyback + burn
+10% infrastructure
+
+every split on chain. cubit goes live [tid].
+```
+_229 tecken_
+
+4. Sista call, 30–60 min före. Bifoga `cubit_banner.png`.
 ```text
 cubit goes live on pump.fun in [tid].
 
