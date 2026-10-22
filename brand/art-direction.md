@@ -17,9 +17,11 @@ Avatar:     2×2×2-kub i glyfmaterialet, den främre övre cellen tänd i isbl�
 ```
 
 Filer: `cubit_avatar.png` (2000²), `cubit_banner.png` (3000×1000), `cubit_launch.mp4` (1920×1080, 30 fps, H.264),
-`cubit_post.png` (3200×1800, stillbild), `cubit_review.jpg` (X-mockup).
+`cubit_post.png` (3200×1800, stillbild), `cubit_meet.png` (3200×1800, pre-launch "meet cubit": minern som
+webbläsarflik, rig-panel med de fyra stegen + sajtens kub), `cubit_review.jpg` (X-mockup).
 
 Källor i `source/`: `avatar.html` + `banner.html` + `glyph.js` (renderas med tech-coin-gfx `gfx.py render`),
-`capture.mjs` (spelar in kuben deterministiskt från dev-servern: `npx vite --port 5174`, sedan
+`cubestill.mjs` + `meet.mjs` (stillbilder av kubens canvas från dev-servern, sedan komposition: `node cubestill.mjs cube`,
+`node meet.mjs cube/cube_42.png cubit_meet.png`), `capture.mjs` (spelar in kuben deterministiskt från dev-servern: `npx vite --port 5174`, sedan
 `node capture.mjs frames 1920 1080 1 8` och `ffmpeg -framerate 30 -i frames/f%04d.jpg -c:v libx264 -crf 16 -pix_fmt yuv420p cubit_launch.mp4`).
 Ingen Higgsfield: allt är kod-renderat från samma motor som sajten.

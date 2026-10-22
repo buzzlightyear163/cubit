@@ -36,7 +36,7 @@ proof of work in a tab, paid from the coin's own creator fees.
 ```
 _197 tecken_
 
-2. Reveal, några timmar före. Bifoga en skärminspelning av rig-panelen medan den minar.
+2. Reveal, några timmar före. Bifoga `cubit_meet.png` (minern som en webbläsarflik: rig-panelen med de fyra stegen + kuben).
 ```text
 meet cubit.
 
