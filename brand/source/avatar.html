@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  body { margin: 0; background: #07090b; }
+  .av { position: relative; width: 1000px; height: 1000px; overflow: hidden;
+    background:
+      radial-gradient(420px 420px at 50% 47%, rgba(127,214,247,.10), rgba(127,214,247,0) 70%),
+      radial-gradient(900px 900px at 50% 40%, #0d1116, #07090b 70%); }
+  canvas { position: absolute; inset: 0; width: 1000px; height: 1000px; }
+</style>
+<script src="glyph.js"></script>
+</head><body>
+<div class="av"><canvas id="c"></canvas></div>
+<script>
+  const dpr = window.devicePixelRatio || 1
+  const cv = document.getElementById('c')
+  cv.width = 1000 * dpr; cv.height = 1000 * dpr
+  const ctx = cv.getContext('2d')
+  const g = 0.075
+  const S = 142
+  const c = (2 + g) / 2
+  const ox = 500, oy = 505
+  // P(c,c,c) lands on (ox, oy)
+  const atlas = buildAtlas(96)
+  const blocks = []
+  for (let x = 0; x < 2; x++) for (let y = 0; y < 2; y++) for (let z = 0; z < 2; z++)
+    blocks.push({ x: x * (1 + g), y: y * (1 + g), z: z * (1 + g), lit: x === 1 && y === 1 && z === 1 })
+  const Lc = 1 + g + 0.5
+  // glow that leaks through the seams, drawn behind the cube
+  const P0 = (x, y, z) => [ox + (x - y) * S * 0.866, oy + (x + y) * S * 0.5 - z * S - c * S + c * S]
+  const lp = [ox + 0, oy + (2 * Lc) * 0.5 * S - Lc * S - (2 * c * 0.5 * S - c * S)]
+  const rg = ctx.createRadialGradient(lp[0] * dpr, lp[1] * dpr, 0, lp[0] * dpr, lp[1] * dpr, 330 * dpr)
+  rg.addColorStop(0, 'rgba(127,214,247,.7)')
+  rg.addColorStop(0.35, 'rgba(127,214,247,.16)')
+  rg.addColorStop(1, 'rgba(127,214,247,0)')
+  ctx.fillStyle = rg
+  ctx.fillRect(0, 0, cv.width, cv.height)
+  // the cube is drawn with origin so its centre sits at (ox, oy)
+  drawCube({ ctx, dpr, S, ox, oy: oy - (2 * c * 0.5 * S - c * S), atlas, blocks, n: 12, light: [Lc, Lc, Lc], lightI: 0.9, spillMax: 0.13, seed: 11 })
+  bloom(cv, 0.32, 12 * dpr)
+</script>
+</body></html>

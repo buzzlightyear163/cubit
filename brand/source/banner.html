@@ -1,0 +1,87 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  body { margin: 0; background: #07090b; }
+  .bn { position: relative; width: 1500px; height: 500px; overflow: hidden;
+    background:
+      radial-gradient(700px 300px at 52% 46%, rgba(26,32,40,.9), rgba(7,9,11,0) 75%),
+      radial-gradient(420px 260px at 18% 20%, rgba(20,25,31,.7), rgba(7,9,11,0) 70%),
+      #07090b; }
+  canvas { position: absolute; inset: 0; width: 1500px; height: 500px; }
+</style>
+<script src="glyph.js"></script>
+</head><body>
+<div class="bn"><canvas id="c"></canvas></div>
+<script>
+  // lowercase "cubit" on a cell grid: x-height 8, ascender 12, strokes two cells wide
+  const L = {
+    c: ['........','........','........','........','..######','.#######','##......','##......','##......','##......','.#######','..######'],
+    u: ['........','........','........','........','##....##','##....##','##....##','##....##','##....##','##....##','.#######','..######'],
+    b: ['##......','##......','##......','##......','######..','#######.','##....##','##....##','##....##','##....##','#######.','######..'],
+    i: ['..','AA','AA','..','##','##','##','##','##','##','##','##'],
+    t: ['......','.##...','.##...','.##...','######','######','.##...','.##...','.##...','.##...','.#####','..####'],
+  }
+  const word = 'cubit', GAP = 2
+  const rows = 12
+  const cols = [...word].reduce((s, ch, i) => s + L[ch][0].length + (i ? GAP : 0), 0)
+  const lit = new Map() // "x,y" -> 'fg' | 'acc'
+  let cx = 0
+  for (const ch of word) {
+    const g = L[ch]
+    for (let y = 0; y < rows; y++) for (let x = 0; x < g[y].length; x++) {
+      const v = g[y][x]
+      if (v === '#') lit.set(`${cx + x},${y}`, 'fg')
+      if (v === 'A') lit.set(`${cx + x},${y}`, 'acc')
+    }
+    cx += g[0].length + GAP
+  }
+
+  const dpr = window.devicePixelRatio || 1
+  const W = 1500, H = 500, p = 18
+  const cv = document.getElementById('c')
+  cv.width = W * dpr; cv.height = H * dpr
+  const ctx = cv.getContext('2d')
+  const atlas = buildAtlas(96)
+  const r = rng(23)
+  const GC = Math.ceil(W / p) + 1, GR = Math.ceil(H / p) + 1
+  const offX = (W - GC * p) / 2, offY = (H - GR * p) / 2
+  const startC = Math.round(GC / 2 - cols / 2) + 1
+  const startR = Math.round(GR / 2 - rows / 2) - 1
+  const fog = (x, y) => 0.5 + 0.22 * Math.sin(x * 0.011 + Math.sin(y * 0.017) * 2.2) + 0.16 * Math.sin(y * 0.031 + x * 0.006 + 1.3) + 0.12 * Math.sin((x - y) * 0.021 + 0.7)
+  const tile = (gx, gy, color, a) => {
+    const x = offX + gx * p, y = offY + gy * p
+    ctx.globalAlpha = a
+    ctx.drawImage(atlas.cv, atlas.cell * ((r() * 16) | 0), color === 'acc' ? atlas.cell : 0, atlas.cell, atlas.cell, (x + 0.5) * dpr, (y + 0.5) * dpr, (p - 1) * dpr, (p - 1) * dpr)
+  }
+  // field of unlit cells
+  for (let gy = 0; gy < GR; gy++) for (let gx = 0; gx < GC; gx++) {
+    const key = `${gx - startC},${gy - startR}`
+    if (lit.has(key)) continue
+    const x = offX + gx * p, y = offY + gy * p
+    const f = Math.max(0, fog(x, y))
+    const edge = Math.min(1, Math.min(x + 40, W - x + 40, y + 30, H - y + 30) / 160)
+    const a = (0.035 + 0.11 * f * f + (r() < 0.02 ? 0.12 : 0)) * (0.55 + 0.45 * edge)
+    tile(gx, gy, 'fg', a)
+  }
+  // the wordmark: lit cells are solid diodes with the hex digit punched out
+  const HEXS = '0123456789abcdef'
+  for (const [k, c] of lit) {
+    const [x, y] = k.split(',').map(Number)
+    const px = offX + (startC + x) * p, py = offY + (startR + y) * p
+    const inset = 1.6
+    ctx.globalAlpha = c === 'acc' ? 1 : 0.86 + 0.14 * r()
+    ctx.fillStyle = c === 'acc' ? '#8FDDFB' : '#E7EDF2'
+    ctx.beginPath()
+    ctx.roundRect((px + inset) * dpr, (py + inset) * dpr, (p - 2 * inset) * dpr, (p - 2 * inset) * dpr, 3.2 * dpr)
+    ctx.fill()
+    ctx.globalAlpha = 0.55
+    ctx.fillStyle = '#07090B'
+    ctx.font = `600 ${9.5 * dpr}px Mono, monospace`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(HEXS[(r() * 16) | 0], (px + p / 2) * dpr, (py + p / 2 + 0.6) * dpr)
+  }
+  ctx.globalAlpha = 1
+  bloom(cv, 0.36, 9 * dpr)
+</script>
+</body></html>

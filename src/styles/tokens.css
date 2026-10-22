@@ -1,0 +1,63 @@
+/* ───────── cubit design tokens ─────────
+   Cool steel neutrals + one ice accent. Change --acc (and the cube colours in
+   src/cube/engine.ts) to rebrand. */
+:root {
+  --bg: #07090b;
+  --panel: #0a0c0e;
+  --pop: #0e1013;
+  --well: #0c0e11;
+  --kv: #0c0e10;
+  --hover: #0e1114;
+  --hover2: #111418;
+  --tip: #121519;
+
+  --fg: #e7edf2;
+  --fg2: #a2abb4;
+  --fg3: #747d88;
+  --copy: #c4ccd4;
+  --off: #4a5058;
+  --mute: #3a3f47;
+
+  --acc: #7fd6f7;
+  --acc-rgb: 127, 214, 247;
+  --acc-a: rgba(127, 214, 247, 0.06);
+
+  --l0: #14171b;
+  --l1: #16191d;
+  --l2: #1a1d22;
+  --l3: #1c1f24;
+  --l4: #1e2126;
+  --l5: #24282e;
+  --l6: #2a2e35;
+  --warn-bd: #26343d;
+
+  --sans: 'Geist Variable', 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+
+  --t-label: 0.6875rem;
+  --t-small: 0.78125rem;
+  --t-body: 0.875rem;
+  --t-head: 1.125rem;
+  --t-num: 1.375rem;
+  --t-figure: 1.75rem;
+  --t-title: 2.25rem;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+  --ease-io: cubic-bezier(0.625, 0.05, 0, 1);
+  --glass: rgba(14, 16, 19, 0.72);
+  --frame: 90rem;
+}
+@media (max-width: 899px) {
+  :root {
+    --t-label: 0.75rem;
+  }
+}

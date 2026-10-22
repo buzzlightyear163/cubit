@@ -1,0 +1,143 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+@media (min-width: 900px) {
+  html {
+    font-size: clamp(15px, 0.3947vw + 10.316px, 18.4px);
+  }
+  html:has(.cb) {
+    font-size: clamp(15px, min(0.3947vw + 10.316px, 1.7778vh), 18.4px);
+  }
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--l4) transparent;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--l4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+a {
+  color: var(--fg);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--acc);
+}
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 1px solid var(--acc);
+  outline-offset: 2px;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+::selection {
+  background: var(--acc);
+  color: var(--bg);
+}
+h1,
+h2,
+h3,
+p,
+dl,
+dd {
+  margin: 0;
+}
+.mono {
+  font-family: var(--mono);
+}
+.dim {
+  color: var(--fg3);
+}
+.sec {
+  color: var(--fg2);
+}
+.acc {
+  color: var(--acc);
+}
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+}
+
+/* view transitions: the cube flies between slots, pages cross-fade */
+:root {
+  view-transition-name: none;
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(*) {
+  animation-duration: 0.42s;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-group(cube) {
+  z-index: 50;
+  animation-duration: 0.62s;
+  animation-timing-function: var(--ease-io);
+}
+::view-transition-old(cube) {
+  animation: none;
+}
+::view-transition-new(cube) {
+  display: none;
+}
+::view-transition-old(page) {
+  animation: 0.16s var(--ease-in) both vt-out;
+}
+::view-transition-new(page) {
+  animation: 0.38s var(--ease-out) 80ms both vt-in;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
